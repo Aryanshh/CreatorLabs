@@ -56,7 +56,7 @@ function DashboardSidebar() {
         <div className="sidebar-user-info">
           <div className="sidebar-user-name">{session?.user?.name || 'Creator'}</div>
           <div className="sidebar-user-tier">
-            {progress ? `Lv.${progress.currentLevel} · ${progress.tierDisplay}` : 'Loading...'}
+            {progress?.totalXP !== undefined ? `Lv.${progress.currentLevel} · ${progress.tierDisplay}` : 'Loading...'}
           </div>
         </div>
         <button className="btn btn-ghost btn-icon" onClick={() => signOut({ callbackUrl: '/' })} title="Sign out">
@@ -78,7 +78,7 @@ function DashboardTopbar() {
     <div className="dashboard-topbar">
       <div className="topbar-title">Dashboard</div>
       <div className="topbar-actions">
-        {progress && (
+        {progress?.totalXP !== undefined && (
           <div className="topbar-xp">XP {progress.totalXP.toLocaleString()}</div>
         )}
         <Link href="/dashboard/create" className="btn btn-primary btn-sm">

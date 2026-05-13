@@ -1,131 +1,188 @@
+'use client';
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
-import './landing.css';
+import './theme.css';
 
-export default function LandingPage() {
+export default function CreatorLabsLanding() {
+  const [email, setEmail] = useState('');
+  const [joined, setJoined] = useState(false);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    return () => observer.disconnect();
+  }, []);
+
+  const platformStats = [
+    { platform: 'Instagram', metric: '94% Accuracy' },
+    { platform: 'Twitter / X', metric: 'Real-time Trends' },
+    { platform: 'TikTok', metric: 'Hook Analysis' },
+    { platform: 'YouTube', metric: 'CTR Prediction' },
+    { platform: 'LinkedIn', metric: 'B2B Strategy' },
+  ];
+
+  const handleWaitlist = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (email) setJoined(true);
+  };
+
   return (
-    <div className="landing">
-      <div className="landing-bg" />
-      <div className="landing-grid" />
+    <div className="creator-labs-theme">
+      <div className="grain-overlay" />
+      
+      <div className="blob blob-1" />
+      <div className="blob blob-2" />
 
       {/* Navigation */}
-      <nav className="landing-nav">
-        <Link href="/" className="nav-logo">
-          <div className="nav-logo-icon">CL</div>
-          <span className="nav-logo-text">Creator Labs</span>
-        </Link>
-        <div className="nav-links">
-          <Link href="/login" className="btn btn-ghost">Log In</Link>
-          <Link href="/register" className="btn btn-primary">Get Started</Link>
+      <nav className="nav-container">
+        <div className="logo">
+          <div className="logo-circle">
+            <div className="logo-dot" />
+          </div>
+          <span style={{ fontWeight: 700, letterSpacing: -1, fontSize: 18 }}>creator labs</span>
         </div>
+        <div className="nav-links">
+          <a href="#simulator" className="nav-link">Simulator</a>
+          <a href="#features" className="nav-link">Features</a>
+          <Link href="/login" className="nav-link">Log In</Link>
+        </div>
+        <Link href="/dashboard" className="nav-cta">Go to Dashboard</Link>
       </nav>
 
-      {/* Hero */}
-      <section className="hero">
-        <div className="hero-badge">
-          <span className="pulse-dot" />
-          Flight Simulator for Social Media
-        </div>
-        <h1>
-          Master the <span className="gradient-text">Algorithm</span> Before Going Live
-        </h1>
-        <p>
-          Practice content creation, experiment with hashtags and SEO, and receive realistic performance 
-          feedback — all without risking your actual social media presence.
-        </p>
-        <div className="hero-actions">
-          <Link href="/register" className="btn btn-primary btn-lg">
-            Start Your First Flight
-          </Link>
-          <Link href="/login" className="btn btn-secondary btn-lg">
-            Demo Login
-          </Link>
-        </div>
-
-        <div className="hero-orbit">
-          <div className="orbit-ring">
-            <div className="orbit-planet"><span className="orbit-label">IG</span></div>
-            <div className="orbit-planet"><span className="orbit-label">TW</span></div>
-            <div className="orbit-planet"><span className="orbit-label">TT</span></div>
-            <div className="orbit-planet"><span className="orbit-label">YT</span></div>
+      {/* Hero Section */}
+      <section className="section hero">
+        <div className="hero-split">
+          <div className="hero-content">
+            <h1 className="reveal">
+              Master the <br />
+              algorithm, <span className="cursive cursive-word">intentionally</span>
+            </h1>
+            <p className="reveal" style={{ transitionDelay: '0.2s' }}>
+              The flight simulator for social media platforms. Practice content strategy, test hashtags, and receive realistic performance feedback in a risk-free environment.
+            </p>
+            <div className="cta-group reveal" style={{ transitionDelay: '0.4s' }}>
+              <Link href="/dashboard" className="btn btn-primary">Enter Simulator</Link>
+              <a href="#features" className="btn btn-secondary">Learn More</a>
+            </div>
           </div>
-          <div className="orbit-ring" />
-          <div className="orbit-ring" />
-          <div className="orbit-center">CL</div>
-        </div>
-      </section>
-
-      {/* Features */}
-      <section className="features">
-        <h2>Everything You Need to <span className="gradient-text">Level Up</span></h2>
-        <p>A complete training ground for aspiring creators, marketers, and businesses.</p>
-        <div className="features-grid">
-          <div className="feature-card">
-            <div className="feature-icon-box"><span>SIM</span></div>
-            <h3>Algorithm Simulation</h3>
-            <p>Our engine mimics real platform algorithms — Instagram, Twitter, TikTok, YouTube, LinkedIn, and Threads — so you know exactly how your content would perform.</p>
-          </div>
-          <div className="feature-card">
-            <div className="feature-icon-box"><span>ANL</span></div>
-            <h3>Real-Time Analytics</h3>
-            <p>Get detailed breakdowns of predicted impressions, reach, engagement rates, and virality scores with 24-hour performance timelines.</p>
-          </div>
-          <div className="feature-card">
-            <div className="feature-icon-box"><span>SEO</span></div>
-            <h3>Hashtag &amp; SEO Lab</h3>
-            <p>Experiment with hashtag strategies and SEO optimization. Our analyzer scores your choices and suggests improvements.</p>
-          </div>
-          <div className="feature-card">
-            <div className="feature-icon-box"><span>XP</span></div>
-            <h3>Gamified Learning</h3>
-            <p>Earn XP, level up from Rookie to Legend, and unlock new platforms and features as you master content creation.</p>
-          </div>
-          <div className="feature-card">
-            <div className="feature-icon-box"><span>CO</span></div>
-            <h3>Collaborative Workspaces</h3>
-            <p>Work with teams in shared workspaces. Collaborate on content strategies and learn from each other&apos;s simulations.</p>
-          </div>
-          <div className="feature-card">
-            <div className="feature-icon-box"><span>LB</span></div>
-            <h3>Leaderboard &amp; Badges</h3>
-            <p>Compete with other creators on the global leaderboard. Earn badges for milestones and showcase your achievements.</p>
+          
+          <div className="hero-visual reveal" style={{ transitionDelay: '0.6s' }}>
+            <div className="mockup-container">
+              <div className="phone-mockup phone-back" />
+              <div className="phone-mockup phone-main">
+                <div style={{ width: '100%', height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: 40 }}>
+                  <div style={{ fontSize: 12, fontWeight: 800, color: 'var(--cl-coral)', marginBottom: 8 }}>PREDICTED REACH</div>
+                  <div style={{ fontSize: 48, fontWeight: 800, letterSpacing: -2 }}>12.4k</div>
+                  <div className="breathe-circle" style={{ marginTop: 24 }} />
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Platforms */}
-      <section className="platforms">
-        <h2>Simulate <span className="gradient-text">Every Platform</span></h2>
-        <p>Master the unique algorithms of each social media platform.</p>
-        <div className="platform-grid">
-          {[
-            { abbr: 'IG', name: 'Instagram', color: '#E4405F' },
-            { abbr: 'X', name: 'Twitter / X', color: '#1DA1F2' },
-            { abbr: 'TT', name: 'TikTok', color: '#00F2EA' },
-            { abbr: 'YT', name: 'YouTube', color: '#FF0000' },
-            { abbr: 'IN', name: 'LinkedIn', color: '#0A66C2' },
-            { abbr: 'TH', name: 'Threads', color: '#ffffff' },
-          ].map((p) => (
-            <div key={p.name} className="platform-card" style={{ borderColor: `${p.color}20` }}>
-              <div className="platform-abbr" style={{ color: p.color, borderColor: `${p.color}40` }}>{p.abbr}</div>
-              <div className="platform-name" style={{ color: p.color }}>{p.name}</div>
+      {/* Full Width Marquee Section */}
+      <div id="simulator" className="marquee-container reveal">
+        <div className="marquee-content">
+          {[...platformStats, ...platformStats].map((s, i) => (
+            <div key={i} className="scenario-card">
+              <span className="scenario-time">{s.platform}</span>
+              <span className="scenario-text">{s.metric}</span>
             </div>
           ))}
         </div>
-      </section>
+      </div>
 
-      {/* CTA */}
-      <section className="cta">
-        <div className="cta-box">
-          <h2>Ready for <span className="gradient-text">Takeoff</span>?</h2>
-          <p>Join thousands of creators mastering social media algorithms in a risk-free environment.</p>
-          <Link href="/register" className="btn btn-primary btn-lg">
-            Launch Your Creator Journey
-          </Link>
+      {/* Features Section */}
+      <section id="features" className="section">
+        <div className="reveal" style={{ textAlign: 'center', marginBottom: 80 }}>
+          <h2 style={{ fontSize: 56, fontWeight: 800, letterSpacing: -2, marginBottom: 24 }}>A simulator that <span className="cursive" style={{ color: 'var(--cl-coral)', fontSize: 72 }}>predicts</span></h2>
+          <p style={{ color: 'var(--cl-stone-500)', maxWidth: 600, margin: '0 auto', fontSize: 20 }}>
+            We built Creator Labs to be your digital training ground. Every simulation is backed by weighted platform-specific variables.
+          </p>
+        </div>
+
+        <div className="grid-2">
+          <div className="card reveal" style={{ padding: 60 }}>
+            <div style={{ fontSize: 12, fontWeight: 800, color: 'var(--cl-coral)', marginBottom: 16 }}>01 / SIMULATE</div>
+            <h3 style={{ fontSize: 32, marginBottom: 20 }}>Realistic Algorithms</h3>
+            <p style={{ color: 'var(--cl-stone-500)', lineHeight: 1.6, fontSize: 18 }}>
+              Our engine mimics the complex behaviors of 6 major platforms, from Instagram Reels to LinkedIn B2B posts.
+            </p>
+          </div>
+          <div className="card reveal" style={{ padding: 60, transitionDelay: '0.2s' }}>
+            <div style={{ fontSize: 12, fontWeight: 800, color: 'var(--cl-coral)', marginBottom: 16 }}>02 / ANALYZE</div>
+            <h3 style={{ fontSize: 32, marginBottom: 20 }}>Data-Driven Insights</h3>
+            <p style={{ color: 'var(--cl-stone-500)', lineHeight: 1.6, fontSize: 18 }}>
+              Get detailed breakdowns of impressions, engagement rates, and virality scores before you ever hit publish.
+            </p>
+          </div>
         </div>
       </section>
 
-      <footer className="landing-footer">
-        <p>&copy; 2026 Creator Labs. Built for the next generation of content creators.</p>
+      {/* Testimonials */}
+      <section id="testimonials" className="section">
+        <div className="reveal" style={{ textAlign: 'center' }}>
+          <h2 style={{ fontSize: 48, fontWeight: 800, letterSpacing: -1 }}>Creator Stories</h2>
+          <p style={{ color: 'var(--cl-stone-500)', fontSize: 18 }}>How creators are mastering the game.</p>
+        </div>
+        
+        <div className="diary-grid">
+          <div className="diary-card reveal">
+            <p className="diary-text">"Creator Labs has completely changed my workflow. I test all my hooks here first, and my actual engagement has tripled since I started using the simulator."</p>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+              <div style={{ width: 32, height: 1, background: 'var(--cl-stone-400)' }} />
+              <span className="cursive" style={{ fontSize: 28, color: 'var(--cl-stone-500)' }}>Marcus D.</span>
+            </div>
+          </div>
+          <div className="diary-card reveal" style={{ transitionDelay: '0.2s' }}>
+            <p className="diary-text">"The feedback loop is incredible. It's like having a senior social media strategist looking over your shoulder every time you write a caption."</p>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+              <div style={{ width: 32, height: 1, background: 'var(--cl-stone-400)' }} />
+              <span className="cursive" style={{ fontSize: 28, color: 'var(--cl-stone-500)' }}>Elena K.</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Conversion - Waitlist Form */}
+      <section className="section">
+        <div className="waitlist-card reveal">
+          <h2 style={{ fontSize: 56, fontWeight: 800, letterSpacing: -2 }}>Ready for takeoff?</h2>
+          <p style={{ color: 'var(--cl-stone-500)', fontSize: 20, marginTop: 16 }}>Join thousands of creators mastering the algorithm.</p>
+          
+          {joined ? (
+            <div className="animate-scale-in" style={{ marginTop: 40, padding: '24px', background: 'var(--cl-sage)', borderRadius: '100px', color: '#065F46', fontWeight: 700 }}>
+              You're on the list! We'll be in touch soon.
+            </div>
+          ) : (
+            <form onSubmit={handleWaitlist} className="waitlist-form">
+              <input 
+                type="email" 
+                placeholder="Enter your email address..." 
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+              />
+              <button type="submit">Join Waitlist</button>
+            </form>
+          )}
+          
+          <p style={{ marginTop: 32, fontSize: 14, color: 'var(--cl-stone-400)', fontWeight: 600 }}>
+            Risk-free simulation. Real-world results.
+          </p>
+        </div>
+      </section>
+
+      <footer style={{ padding: '80px 24px', textAlign: 'center', color: 'var(--cl-stone-400)', fontSize: 14, borderTop: '1px solid var(--cl-stone-100)' }}>
+        <p style={{ fontWeight: 600 }}>&copy; 2026 Creator Labs. Built for the next generation of content creators.</p>
       </footer>
     </div>
   );
