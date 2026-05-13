@@ -53,7 +53,7 @@ export default function CreatorLabsLanding() {
           <a href="#features" className="nav-link">Features</a>
           <Link href="/login" className="nav-link">Log In</Link>
         </div>
-        <Link href="/dashboard" className="nav-cta">Go to Dashboard</Link>
+        <Link href="/register" className="nav-cta">Start Your Flight</Link>
       </nav>
 
       {/* Hero Section */}
@@ -68,8 +68,8 @@ export default function CreatorLabsLanding() {
               The flight simulator for social media platforms. Practice content strategy, test hashtags, and receive realistic performance feedback in a risk-free environment.
             </p>
             <div className="cta-group reveal" style={{ transitionDelay: '0.4s' }}>
-              <Link href="/dashboard" className="btn btn-primary">Enter Simulator</Link>
-              <a href="#features" className="btn btn-secondary">Learn More</a>
+              <Link href="/register" className="btn btn-primary">Start Your Flight</Link>
+              <Link href="/login" className="btn btn-secondary">Log In</Link>
             </div>
           </div>
           

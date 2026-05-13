@@ -12,6 +12,8 @@ model User {
   name         String?
   avatar       String?
   passwordHash String?
+  emailVerified DateTime?
+  verificationToken String?
 
   // Gamification
   totalXP      Int      @default(0)

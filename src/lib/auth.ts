@@ -17,6 +17,12 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
           where: { email: credentials.email as string },
         });
         if (!user || !user.passwordHash) return null;
+        
+        // Check if email is verified
+        if (!user.emailVerified) {
+          throw new Error('Please verify your email before logging in.');
+        }
+
         const isValid = await compare(credentials.password as string, user.passwordHash);
         if (!isValid) return null;
         return { id: user.id, email: user.email, name: user.name, image: user.avatar };
