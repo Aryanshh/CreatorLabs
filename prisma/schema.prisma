@@ -1,0 +1,170 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+model User {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  name         String?
+  avatar       String?
+  passwordHash String?
+
+  // Gamification
+  totalXP      Int      @default(0)
+  currentLevel Int      @default(1)
+  creatorTier  String   @default("ROOKIE")
+
+  // Relations
+  posts        Post[]
+  simulations  Simulation[]
+  badges       UserBadge[]
+  analytics    UserAnalytics[]
+  xpHistory    XPEvent[]
+  workspaceMembers WorkspaceMember[]
+
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model Post {
+  id          String   @id @default(cuid())
+  userId      String
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  platform    String   // INSTAGRAM, TWITTER, TIKTOK, YOUTUBE, LINKEDIN, THREADS
+  contentType String   // TEXT, IMAGE, VIDEO, CAROUSEL, STORY, REEL, THREAD
+  title       String?
+  body        String
+  mediaUrls   String   @default("[]") // JSON array
+  hashtags    String   @default("[]") // JSON array
+  scheduledFor DateTime?
+
+  // SEO
+  seoTitle       String?
+  seoDescription String?
+  keywords       String @default("[]") // JSON array
+
+  // Relations
+  simulations Simulation[]
+
+  status      String   @default("DRAFT") // DRAFT, SIMULATING, SIMULATED, ARCHIVED
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Simulation {
+  id             String   @id @default(cuid())
+  postId         String
+  post           Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
+  userId         String
+  user           User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  platform       String
+
+  // Predicted metrics
+  impressions    Int      @default(0)
+  reach          Int      @default(0)
+  likes          Int      @default(0)
+  comments       Int      @default(0)
+  shares         Int      @default(0)
+  saves          Int      @default(0)
+  engagementRate Float    @default(0)
+  viralityScore  Float    @default(0)
+
+  // Algorithm breakdown (JSON)
+  algorithmFactors String? // JSON
+  recommendations  String? // JSON
+  timeline         String? // JSON - hour-by-hour data
+
+  status         String   @default("PENDING") // PENDING, PROCESSING, COMPLETED, FAILED
+  completedAt    DateTime?
+  createdAt      DateTime @default(now())
+}
+
+model Level {
+  id          Int    @id @default(autoincrement())
+  number      Int    @unique
+  xpRequired  Int
+  title       String
+  unlocks     String? // JSON
+}
+
+model Badge {
+  id          String      @id @default(cuid())
+  name        String      @unique
+  description String
+  iconEmoji   String      @default("🏆")
+  category    String      // MILESTONE, PLATFORM_MASTERY, ENGAGEMENT, CREATIVITY, COLLABORATION
+  criteria    String      // JSON: {type, threshold}
+  xpReward    Int         @default(50)
+  users       UserBadge[]
+}
+
+model UserBadge {
+  id       String   @id @default(cuid())
+  userId   String
+  user     User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  badgeId  String
+  badge    Badge    @relation(fields: [badgeId], references: [id], onDelete: Cascade)
+  earnedAt DateTime @default(now())
+
+  @@unique([userId, badgeId])
+}
+
+model XPEvent {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  amount    Int
+  source    String   // simulation_run, badge_earned, daily_login, high_score
+  metadata  String?  // JSON
+  createdAt DateTime @default(now())
+}
+
+model UnlockableFeature {
+  id            String @id @default(cuid())
+  name          String @unique
+  description   String
+  requiredLevel Int
+  featureKey    String @unique
+}
+
+model Workspace {
+  id          String            @id @default(cuid())
+  name        String
+  description String?
+  ownerId     String
+  inviteCode  String            @unique @default(cuid())
+  members     WorkspaceMember[]
+  createdAt   DateTime          @default(now())
+}
+
+model WorkspaceMember {
+  id          String    @id @default(cuid())
+  userId      String
+  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  workspaceId String
+  workspace   Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  role        String    @default("MEMBER") // OWNER, ADMIN, MEMBER, VIEWER
+  joinedAt    DateTime  @default(now())
+
+  @@unique([userId, workspaceId])
+}
+
+model UserAnalytics {
+  id             String   @id @default(cuid())
+  userId         String
+  user           User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  date           DateTime
+  simulationsRun Int      @default(0)
+  avgEngagement  Float    @default(0)
+  avgVirality    Float    @default(0)
+  topPlatform    String?
+  xpEarned       Int      @default(0)
+
+  @@unique([userId, date])
+}
