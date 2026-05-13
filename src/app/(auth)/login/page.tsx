@@ -46,7 +46,9 @@ export default function LoginPage() {
     setLoading(true);
     await fetch('/api/seed', { method: 'POST' }).catch(() => {});
     const result = await signIn('credentials', { email: 'demo@creatorlabs.com', password: 'demo123', redirect: false });
-    if (result?.error) { setError('Demo login failed. Try registering instead.'); }
+    if (result?.error) { 
+      setError(result.error.includes('verify') ? result.error : 'Demo login failed. Try registering instead.'); 
+    }
     else { router.push('/dashboard'); }
     setLoading(false);
   };
@@ -73,7 +75,12 @@ export default function LoginPage() {
               <input className="input" type="email" placeholder="you@example.com" value={email} onChange={e => setEmail(e.target.value)} required />
             </div>
             <div className="input-group">
-              <label>Password</label>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <label>Password</label>
+                <Link href="/forgot-password" style={{ fontSize: 12, fontWeight: 700, color: 'var(--cl-coral)', textDecoration: 'none' }}>
+                  Forgot Password?
+                </Link>
+              </div>
               <input className="input" type="password" placeholder="••••••••" value={password} onChange={e => setPassword(e.target.value)} required />
             </div>
             <button className="btn btn-primary" type="submit" disabled={loading} style={{ width: '100%', marginTop: 8, padding: '18px' }}>

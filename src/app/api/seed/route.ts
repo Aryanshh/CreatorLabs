@@ -50,8 +50,16 @@ export async function POST() {
     const passwordHash = await hash('demo123', 12);
     const user = await prisma.user.upsert({
       where: { email: 'demo@creatorlabs.com' },
-      update: {},
-      create: { email: 'demo@creatorlabs.com', name: 'Demo Creator', passwordHash, totalXP: 0, currentLevel: 1, creatorTier: 'ROOKIE' },
+      update: { emailVerified: new Date() },
+      create: { 
+        email: 'demo@creatorlabs.com', 
+        name: 'Demo Creator', 
+        passwordHash, 
+        totalXP: 0, 
+        currentLevel: 1, 
+        creatorTier: 'ROOKIE',
+        emailVerified: new Date()
+      },
     });
 
     // Unlockable features
