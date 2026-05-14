@@ -1,9 +1,48 @@
 'use client';
 import { useState, useEffect } from 'react';
 import { useSession } from 'next-auth/react';
+import PhoneVerificationModal from '@/components/PhoneVerificationModal';
+import '../../dashboard.css';
 
 export default function SettingsPage() {
   const { data: session } = useSession();
+  const [isPhoneModalOpen, setIsPhoneModalOpen] = useState(false);
+  const [verificationStatus, setVerificationStatus] = useState({
+    email: false,
+    phone: false,
+    phoneNumber: ''
+  });
+
+  const fetchStatus = async () => {
+    try {
+      const res = await fetch('/api/user/progress');
+      const data = await res.json();
+      setVerificationStatus({
+        email: !!data.emailVerified,
+        phone: !!data.phoneVerified,
+        phoneNumber: data.phoneNumber || ''
+      });
+    } catch (error) {
+      console.error('Failed to fetch verification status');
+    }
+  };
+
+  useEffect(() => {
+    fetchStatus();
+  }, []);
+
+  const handlePhoneSuccess = async (phoneNumber: string) => {
+    try {
+      await fetch('/api/user/verify-phone', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ phoneNumber })
+      });
+      fetchStatus();
+    } catch (error) {
+      console.error('Failed to update DB after phone verification');
+    }
+  };
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState('');
   
@@ -141,6 +180,61 @@ export default function SettingsPage() {
           </div>
         </div>
 
+        {/* Security & Verification Section */}
+        <div className="card" style={{ marginBottom: 24 }}>
+          <h3 style={{ marginBottom: 24, fontSize: 18 }}>Security & Verification</h3>
+          
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 24 }}>
+            {/* Email Verification */}
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
+                <div style={{ width: 40, height: 40, borderRadius: 12, background: 'var(--cl-stone-100)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 18 }}>📧</div>
+                <div>
+                  <div style={{ fontWeight: 700, fontSize: 15 }}>Email Address</div>
+                  <div style={{ fontSize: 13, color: 'var(--cl-stone-500)' }}>{session?.user?.email}</div>
+                </div>
+              </div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+                <span className={`badge ${verificationStatus.email ? 'badge-teal' : 'badge-yellow'}`}>
+                  {verificationStatus.email ? 'Verified' : 'Unverified'}
+                </span>
+                {!verificationStatus.email && (
+                  <button className="btn btn-secondary" style={{ padding: '8px 16px', fontSize: 12 }}>Verify Now</button>
+                )}
+              </div>
+            </div>
+
+            <div style={{ height: 1, background: 'var(--cl-stone-100)' }} />
+
+            {/* Phone Verification */}
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
+                <div style={{ width: 40, height: 40, borderRadius: 12, background: 'var(--cl-stone-100)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 18 }}>📱</div>
+                <div>
+                  <div style={{ fontWeight: 700, fontSize: 15 }}>Phone Number</div>
+                  <div style={{ fontSize: 13, color: 'var(--cl-stone-500)' }}>
+                    {verificationStatus.phoneNumber || 'No phone number linked'}
+                  </div>
+                </div>
+              </div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+                <span className={`badge ${verificationStatus.phone ? 'badge-teal' : 'badge-yellow'}`}>
+                  {verificationStatus.phone ? 'Verified' : 'Unverified'}
+                </span>
+                {!verificationStatus.phone && (
+                  <button 
+                    onClick={() => setIsPhoneModalOpen(true)}
+                    className="btn btn-secondary" 
+                    style={{ padding: '8px 16px', fontSize: 12 }}
+                  >
+                    {verificationStatus.phoneNumber ? 'Verify Code' : 'Add Phone'}
+                  </button>
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
+
         {/* Account Section */}
         <div className="card" style={{ marginBottom: 32 }}>
           <h3 style={{ marginBottom: 24, fontSize: 18 }}>Account Security</h3>
@@ -165,6 +259,11 @@ export default function SettingsPage() {
           </button>
           {message && <span style={{ color: '#059669', fontWeight: 600, fontSize: 14 }}>{message}</span>}
         </div>
+        <PhoneVerificationModal 
+          isOpen={isPhoneModalOpen} 
+          onClose={() => setIsPhoneModalOpen(false)}
+          onSuccess={handlePhoneSuccess}
+        />
       </div>
     </div>
   );

@@ -16,6 +16,10 @@ model User {
   verificationToken String?
   resetToken String?
   resetTokenExpiry DateTime?
+  
+  // Phone Verification
+  phoneNumber       String?   @unique
+  phoneVerified     DateTime?
 
   // Gamification
   totalXP      Int      @default(0)

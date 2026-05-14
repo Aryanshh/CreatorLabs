@@ -29,8 +29,11 @@ export default function ProgressPage() {
   if (loading) return <div><div className="page-header"><h1>Progress</h1></div><div className="skeleton" style={{ height: 200 }} /></div>;
   if (!data) return <div className="card">Failed to load progress data</div>;
 
-  const categories = ['ALL', ...new Set(data.badges.all.map(b => b.category))];
-  const filteredBadges = filter === 'ALL' ? data.badges.all : data.badges.all.filter(b => b.category === filter);
+  const badgesAll = data.badges?.all || [];
+  const badgesEarned = data.badges?.earned || [];
+  
+  const categories = ['ALL', ...new Set(badgesAll.map(b => b.category))];
+  const filteredBadges = filter === 'ALL' ? badgesAll : badgesAll.filter(b => b.category === filter);
 
   return (
     <div>
@@ -70,7 +73,7 @@ export default function ProgressPage() {
             <div style={{ fontSize: 12, color: 'var(--text-muted)' }}>Simulations</div>
           </div>
           <div style={{ textAlign: 'center', padding: '12px', background: 'var(--bg-glass)', borderRadius: 'var(--radius-md)' }}>
-            <div style={{ fontSize: 24, fontWeight: 800, color: 'var(--accent-warning)' }}>BDG {data.badges.earned.length}</div>
+            <div style={{ fontSize: 24, fontWeight: 800, color: 'var(--accent-warning)' }}>BDG {badgesEarned.length}</div>
             <div style={{ fontSize: 12, color: 'var(--text-muted)' }}>Badges</div>
           </div>
         </div>

@@ -18,7 +18,20 @@ export default function SimulationsPage() {
   const [selected, setSelected] = useState<Sim | null>(null);
 
   useEffect(() => {
-    fetch('/api/simulations').then(r => r.json()).then(d => { setSims(d); setLoading(false); }).catch(() => setLoading(false));
+    fetch('/api/simulations')
+      .then(r => r.json())
+      .then(d => { 
+        if (Array.isArray(d)) {
+          setSims(d); 
+        } else {
+          setSims([]);
+        }
+        setLoading(false); 
+      })
+      .catch(() => {
+        setSims([]);
+        setLoading(false);
+      });
   }, []);
 
   if (loading) return <div><div className="page-header"><h1>My Simulations</h1></div><div className="grid-2">{[1,2,3,4].map(i => <div key={i} className="skeleton" style={{ height: 160 }} />)}</div></div>;

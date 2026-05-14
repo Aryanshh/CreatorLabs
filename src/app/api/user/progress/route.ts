@@ -34,5 +34,8 @@ export async function GET() {
       all: allBadges.map(b => ({ ...b, criteria: JSON.parse(b.criteria), earned: earnedBadgeIds.includes(b.id) })),
     },
     recentXP: user.xpHistory.map(e => ({ ...e, metadata: e.metadata ? JSON.parse(e.metadata) : null })),
+    emailVerified: user.emailVerified,
+    phoneVerified: user.phoneVerified,
+    phoneNumber: user.phoneNumber
   });
 }
