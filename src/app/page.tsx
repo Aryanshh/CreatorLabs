@@ -48,10 +48,18 @@ export default function CreatorLabsLanding() {
           </div>
           <span style={{ fontWeight: 700, letterSpacing: -1, fontSize: 18 }}>creator labs</span>
         </div>
-        <div className="nav-links">
-          <a href="#simulator" className="nav-link">Simulator</a>
-          <a href="#features" className="nav-link">Features</a>
-          <Link href="/login" className="nav-link">Log In</Link>
+        <div style={{ height: 40, overflow: 'hidden', textAlign: 'center' }}>
+          <div className="tagline-cycle" style={{ 
+            fontSize: 13, fontWeight: 700, color: 'var(--cl-stone-400)', 
+            letterSpacing: 0.5, textTransform: 'uppercase',
+            display: 'flex', flexDirection: 'column',
+            animation: 'cycleTags 12s infinite'
+          }}>
+            <div style={{ height: 40, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>Simulate the growth.</div>
+            <div style={{ height: 40, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>Master the algorithm.</div>
+            <div style={{ height: 40, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>Train your influence.</div>
+            <div style={{ height: 40, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>Build your empire.</div>
+          </div>
         </div>
         <Link href="/register" className="nav-cta">Start Your Flight</Link>
       </nav>

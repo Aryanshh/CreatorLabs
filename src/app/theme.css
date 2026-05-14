@@ -61,9 +61,12 @@ body {
   animation: float 6s ease-in-out infinite;
 }
 
-@keyframes float {
-  0%, 100% { transform: translateY(0) scale(1); }
-  50% { transform: translateY(-20px) scale(1.05); }
+@keyframes cycleTags {
+  0%, 20% { transform: translateY(0); }
+  25%, 45% { transform: translateY(-40px); }
+  50%, 70% { transform: translateY(-80px); }
+  75%, 95% { transform: translateY(-120px); }
+  100% { transform: translateY(0); }
 }
 
 .blob-1 { background-color: #FFE4E1; top: -100px; left: -100px; }
@@ -182,7 +185,7 @@ body.dark .waitlist-form button {
 /* Layout */
 .section {
   padding: var(--section-gap) 24px;
-  max-width: var(--container-max);
+  max-width: 1400px;
   margin: 0 auto;
 }
 
@@ -190,9 +193,11 @@ body.dark .waitlist-form button {
 .hero-split {
   display: flex;
   align-items: center;
-  gap: 60px;
-  padding-top: 180px;
-  min-height: 80vh;
+  justify-content: center;
+  gap: 80px;
+  padding-top: 80px;
+  min-height: 70vh;
+  padding-left: 150px;
 }
 
 .hero-content {

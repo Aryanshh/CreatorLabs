@@ -36,9 +36,9 @@ export default function ProfilePage() {
         <p>Manage your identity and track your growth</p>
       </div>
 
-      <div className="grid-3" style={{ marginBottom: 32 }}>
+      <div className="grid-3" style={{ marginBottom: 32, justifyContent: 'center' }}>
         {/* User Card */}
-        <div className="card" style={{ gridColumn: 'span 2', display: 'flex', gap: 32, alignItems: 'center' }}>
+        <div className="card" style={{ gridColumn: 'span 2', display: 'flex', flexDirection: 'column', gap: 24, alignItems: 'center', textAlign: 'center' }}>
           <div style={{ 
             width: 120, height: 120, borderRadius: 40, 
             background: 'var(--cl-coral)', display: 'flex', 
@@ -48,8 +48,8 @@ export default function ProfilePage() {
           }}>
             {session?.user?.name?.[0]?.toUpperCase()}
           </div>
-          <div style={{ flex: 1 }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+          <div style={{ width: '100%' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 12 }}>
               <div>
                 <h2 style={{ marginBottom: 4 }}>{session?.user?.name}</h2>
                 <p style={{ color: 'var(--cl-stone-500)', fontSize: 16 }}>{session?.user?.email}</p>

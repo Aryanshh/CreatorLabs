@@ -51,7 +51,7 @@ export default function SettingsPage() {
         <p>Configure your account and platform preferences</p>
       </div>
 
-      <div style={{ maxWidth: 800 }}>
+      <div style={{ maxWidth: 800, margin: '0 auto', width: '100%' }}>
         {/* Appearance Section */}
         <div className="card" style={{ marginBottom: 24 }}>
           <h3 style={{ marginBottom: 24, fontSize: 18 }}>Display & Experience</h3>
