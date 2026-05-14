@@ -33,6 +33,75 @@
   --grid-gap: 32px;
 }
 
+body.dark {
+  --cl-bg: #0C0A09; /* Richer Black */
+  --cl-stone-800: #FAFAF9; /* Crisp White */
+  --cl-stone-500: #A8A29E; /* Muted Stone */
+  --cl-stone-400: #57534E; /* Darker Stone */
+  --cl-stone-200: #292524; /* Deep Border */
+  --cl-stone-100: #1C1917; /* Card Background */
+  --bg-color: var(--cl-bg);
+  --text-primary: var(--cl-stone-800);
+  --text-secondary: var(--cl-stone-500);
+  --text-muted: var(--cl-stone-400);
+  --border-color: var(--cl-stone-200);
+  --bg-glass: rgba(12, 10, 9, 0.8);
+  --cl-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.4);
+}
+
+body.dark .card, 
+body.dark .stat-card, 
+body.dark .sidebar, 
+body.dark .sidebar-user-card, 
+body.dark .sidebar-user-actions .user-action-link,
+body.dark .waitlist-card,
+body.dark .diary-card,
+body.dark .scenario-card {
+  background: #12100E !important;
+  border-color: #292524 !important;
+  color: var(--cl-stone-800);
+}
+
+body.dark .input, 
+body.dark .textarea,
+body.dark .waitlist-form {
+  background: #1C1917 !important;
+  color: white !important;
+  border-color: transparent;
+}
+
+body.dark .sidebar-link:hover, 
+body.dark .sidebar-link.active {
+  background: #1C1917 !important;
+  color: white !important;
+}
+
+body.dark .nav-container {
+  background: rgba(12, 10, 9, 0.7) !important;
+  border: 1px solid rgba(255,255,255,0.05);
+}
+
+body.dark .nav-link {
+  color: var(--cl-stone-500);
+}
+
+body.dark .nav-link:hover {
+  color: white;
+}
+
+body.dark .btn-primary {
+  color: #0C0A09 !important;
+}
+
+body.dark .btn-secondary {
+  border-color: #44403C;
+  color: white;
+}
+
+body.dark .btn-secondary:hover {
+  background: #292524;
+}
+
 * {
   margin: 0;
   padding: 0;

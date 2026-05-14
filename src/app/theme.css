@@ -138,6 +138,47 @@ body {
   transform: scale(1.05);
 }
 
+/* Dark Mode Overrides */
+body.dark {
+  --cl-bg: #0C0A09;
+  --cl-stone-800: #FAFAF9;
+  --cl-stone-500: #A8A29E;
+}
+
+body.dark .blob-1 { background-color: #2D1B1B; opacity: 0.3; }
+body.dark .blob-2 { background-color: #1B1B2D; opacity: 0.3; }
+
+body.dark .nav-container {
+  background: rgba(12, 10, 9, 0.8);
+  border-color: #292524;
+}
+
+body.dark .nav-link { color: var(--cl-stone-500); }
+body.dark .nav-link:hover { color: white; }
+body.dark .nav-cta { background: white; color: black; }
+
+body.dark .hero p { color: var(--cl-stone-500); }
+
+body.dark .marquee-container {
+  background: rgba(28, 25, 23, 0.4);
+}
+
+body.dark .phone-main { background: #1C1917; }
+body.dark .phone-back { background: #292524; opacity: 0.4; }
+
+body.dark .waitlist-form {
+  background: #292524;
+}
+
+body.dark .waitlist-form input {
+  color: white;
+}
+
+body.dark .waitlist-form button {
+  background: white;
+  color: black;
+}
+
 /* Layout */
 .section {
   padding: var(--section-gap) 24px;

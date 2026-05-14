@@ -67,6 +67,15 @@
   }
 }
 
+/* Dark Mode Overrides */
+body.dark .auth-container { background: #12100E; border-color: #292524; }
+body.dark .auth-header { background: #1C1917; border-right-color: #292524; }
+body.dark .auth-content { background: #12100E; }
+body.dark .auth-divider { color: var(--cl-stone-400); }
+body.dark .auth-divider::before, body.dark .auth-divider::after { background: #292524; }
+body.dark .auth-footer { color: var(--cl-stone-500); }
+body.dark .auth-footer a { color: white; }
+
 .auth-header {
   text-align: center;
   margin-bottom: 40px;
