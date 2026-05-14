@@ -73,6 +73,7 @@ export default function CreatePage() {
       });
       const post = await postRes.json();
       if (!postRes.ok) throw new Error(post.error);
+      const draftingXP = post.xpAwarded || 0;
 
       // Run simulation
       const simRes = await fetch('/api/simulations', {
@@ -82,7 +83,12 @@ export default function CreatePage() {
       });
       const simData = await simRes.json();
       if (!simRes.ok) throw new Error(simData.error);
-      setResult(simData);
+      
+      // Combine XP
+      setResult({
+        ...simData,
+        xpAwarded: simData.xpAwarded + draftingXP
+      });
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Simulation failed');
     }

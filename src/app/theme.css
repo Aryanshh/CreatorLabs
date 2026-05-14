@@ -76,10 +76,10 @@ body {
   left: 50%;
   transform: translateX(-50%);
   width: calc(100% - 32px);
-  max-width: 1100px;
+  max-width: 1400px;
   background: rgba(255, 255, 255, 0.7);
   backdrop-filter: blur(20px);
-  padding: 8px 16px 8px 24px;
+  padding: 12px 24px 12px 32px;
   border-radius: var(--radius-pill);
   display: flex;
   align-items: center;
@@ -140,8 +140,8 @@ body {
 
 /* Layout */
 .section {
-  padding: 100px 24px;
-  max-width: 1200px;
+  padding: var(--section-gap) 24px;
+  max-width: var(--container-max);
   margin: 0 auto;
 }
 
@@ -184,10 +184,10 @@ body {
 }
 
 .hero p {
-  font-size: 20px;
+  font-size: 24px;
   color: var(--cl-stone-500);
-  max-width: 500px;
-  margin-bottom: 48px;
+  max-width: 600px;
+  margin-bottom: 64px;
   line-height: 1.6;
 }
 
@@ -301,8 +301,8 @@ body {
 /* Mockup Visualization */
 .mockup-container {
   position: relative;
-  width: 400px;
-  height: 600px;
+  width: 600px;
+  height: 850px;
 }
 
 .phone-mockup {
@@ -315,8 +315,8 @@ body {
 }
 
 .phone-main {
-  width: 280px;
-  height: 580px;
+  width: 360px;
+  height: 740px;
   background: white;
   z-index: 10;
   top: 0;
@@ -325,12 +325,12 @@ body {
 }
 
 .phone-back {
-  width: 280px;
-  height: 580px;
+  width: 360px;
+  height: 740px;
   background: var(--cl-sage);
   z-index: 5;
-  top: 40px;
-  left: 60px;
+  top: 50px;
+  left: 80px;
   transform: rotate(5deg);
   opacity: 0.6;
 }

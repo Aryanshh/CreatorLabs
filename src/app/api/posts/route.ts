@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import prisma from '@/lib/prisma';
 import { auth } from '@/lib/auth';
+import { awardXP } from '@/lib/gamification';
 
 export async function GET() {
   const session = await auth();
@@ -25,5 +26,10 @@ export async function POST(req: NextRequest) {
       seoTitle: data.seoTitle, seoDescription: data.seoDescription, scheduledFor: data.scheduledFor ? new Date(data.scheduledFor) : null,
     },
   });
-  return NextResponse.json({ ...post, hashtags: JSON.parse(post.hashtags), keywords: JSON.parse(post.keywords) }, { status: 201 });
+
+  // Award XP for drafting
+  const xpAmount = 20;
+  await awardXP(session.user.id, xpAmount, 'post_created', { postId: post.id });
+
+  return NextResponse.json({ ...post, hashtags: JSON.parse(post.hashtags), keywords: JSON.parse(post.keywords), xpAwarded: xpAmount }, { status: 201 });
 }

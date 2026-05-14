@@ -22,22 +22,24 @@ function DashboardSidebar() {
   }, []);
 
   const links = [
-    { href: '/dashboard', icon: 'ANL', label: 'Overview' },
-    { href: '/dashboard/create', icon: 'SIM', label: 'Simulation Studio' },
-    { href: '/dashboard/simulations', icon: 'HIS', label: 'My Simulations' },
-    { href: '/dashboard/analytics', icon: 'GRF', label: 'Analytics' },
-    { href: '/dashboard/progress', icon: 'XP', label: 'Progress & Badges' },
-    { href: '/dashboard/leaderboard', icon: 'LDB', label: 'Leaderboard' },
+    { href: '/dashboard', icon: '○', label: 'Overview' },
+    { href: '/dashboard/create', icon: '＋', label: 'Studio' },
+    { href: '/dashboard/simulations', icon: '◷', label: 'History' },
+    { href: '/dashboard/analytics', icon: '▤', label: 'Insights' },
+    { href: '/dashboard/progress', icon: '☆', label: 'Progress' },
+    { href: '/dashboard/leaderboard', icon: '△', label: 'Ranks' },
   ];
 
   return (
     <aside className="sidebar">
       <div className="sidebar-header">
-        <div className="sidebar-logo">CL</div>
+        <div className="sidebar-logo-container">
+          <div className="sidebar-logo-circle" />
+        </div>
         <span className="sidebar-title">Creator Labs</span>
       </div>
       <nav className="sidebar-nav">
-        <div className="sidebar-section">Main</div>
+        <div className="sidebar-section">Main Menu</div>
         {links.map(link => (
           <Link
             key={link.href}
@@ -50,18 +52,24 @@ function DashboardSidebar() {
         ))}
       </nav>
       <div className="sidebar-footer">
-        <div className="sidebar-avatar">
-          {session?.user?.name?.[0]?.toUpperCase() || '?'}
+        <div className="sidebar-user-actions">
+          <Link href="/dashboard/profile" className="user-action-link">Profile</Link>
+          <Link href="/dashboard/settings" className="user-action-link">Settings</Link>
         </div>
-        <div className="sidebar-user-info">
-          <div className="sidebar-user-name">{session?.user?.name || 'Creator'}</div>
-          <div className="sidebar-user-tier">
-            {progress?.totalXP !== undefined ? `Lv.${progress.currentLevel} · ${progress.tierDisplay}` : 'Loading...'}
+        <div className="sidebar-user-card">
+          <div className="sidebar-avatar">
+            {session?.user?.name?.[0]?.toUpperCase() || '?'}
           </div>
+          <div className="sidebar-user-info">
+            <div className="sidebar-user-name">{session?.user?.name || 'Creator'}</div>
+            <div className="sidebar-user-tier">
+              {progress?.totalXP !== undefined ? `Lv.${progress.currentLevel} · ${progress.tierDisplay}` : 'Loading...'}
+            </div>
+          </div>
+          <button className="logout-btn" onClick={() => signOut({ callbackUrl: '/' })} title="Sign out">
+            ✕
+          </button>
         </div>
-        <button className="btn btn-ghost btn-icon" onClick={() => signOut({ callbackUrl: '/' })} title="Sign out">
-          OFF
-        </button>
       </div>
     </aside>
   );
@@ -81,7 +89,7 @@ function DashboardTopbar() {
         {progress?.totalXP !== undefined && (
           <div className="topbar-xp">XP {progress.totalXP.toLocaleString()}</div>
         )}
-        <Link href="/dashboard/create" className="btn btn-primary btn-sm">
+        <Link href="/dashboard/create" className="btn btn-accent btn-sm">
           New Simulation
         </Link>
       </div>
