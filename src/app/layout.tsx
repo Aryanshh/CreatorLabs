@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   description: "Master social media algorithms through hands-on simulation. Practice content creation, SEO, hashtags, and engagement strategies in a risk-free environment.",
   keywords: ["social media", "simulator", "content creation", "algorithm", "engagement", "creator"],
   icons: {
-    icon: "/icon.png",
+    icon: "/icon.svg",
   },
 };
 

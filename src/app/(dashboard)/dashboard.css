@@ -2,7 +2,7 @@
   display: flex; 
   min-height: 100vh; 
   background: var(--bg-color); 
-  font-family: 'Inter', sans-serif;
+  font-family: var(--font-body);
   letter-spacing: -0.01em;
 }
 
@@ -14,12 +14,21 @@
   left: 0; top: 0; bottom: 0;
   background: #FDFCF8; 
   border-right: 1px solid rgba(0,0,0,0.05);
-  font-family: 'Inter', sans-serif;
+  font-family: var(--font-body);
   transition: all 0.3s ease;
   display: flex; 
   flex-direction: column; 
   z-index: 50; 
   box-shadow: 4px 0 20px -10px rgba(0,0,0,0.05);
+}
+
+.dashboard-layout h1, 
+.dashboard-layout h2, 
+.dashboard-layout h3, 
+.dashboard-layout .sidebar-logo-text {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  letter-spacing: -0.02em;
 }
 
 body.dark .sidebar {
