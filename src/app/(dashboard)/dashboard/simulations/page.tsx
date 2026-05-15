@@ -1,8 +1,13 @@
 'use client';
 import { useEffect, useState } from 'react';
+import { InstagramIcon, XIcon, YouTubeIcon, LinkedInIcon, ThreadsIcon } from '@/components/Icons';
 
-const PLATFORM_ICONS: Record<string, string> = {
-  INSTAGRAM: 'IG', TWITTER: 'X', TIKTOK: 'TT', YOUTUBE: 'YT', LINKEDIN: 'LI', THREADS: 'TH',
+const PLATFORM_ICONS: Record<string, React.ReactNode> = {
+  INSTAGRAM: <InstagramIcon size={20} />, 
+  TWITTER: <XIcon size={20} />, 
+  YOUTUBE: <YouTubeIcon size={20} />, 
+  LINKEDIN: <LinkedInIcon size={20} />, 
+  THREADS: <ThreadsIcon size={20} />,
 };
 
 interface Sim {
@@ -59,7 +64,7 @@ export default function SimulationsPage() {
             {sims.map(sim => (
               <div key={sim.id} className="card" style={{ cursor: 'pointer', borderColor: selected?.id === sim.id ? 'var(--accent-primary)' : undefined }} onClick={() => setSelected(sim)}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 12 }}>
-                  <span style={{ fontSize: 18, fontWeight: 800, width: 40 }}>{PLATFORM_ICONS[sim.platform]}</span>
+                  <span style={{ display: 'flex', alignItems: 'center', width: 40, color: 'var(--accent-primary)' }}>{PLATFORM_ICONS[sim.platform]}</span>
                   <div style={{ flex: 1 }}>
                     <div style={{ fontSize: 14, fontWeight: 600 }}>{sim.post?.body?.substring(0, 50) || 'Untitled'}...</div>
                     <div style={{ fontSize: 12, color: 'var(--text-muted)' }}>{sim.platform} · {sim.post?.contentType} · {new Date(sim.createdAt).toLocaleDateString()}</div>

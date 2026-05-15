@@ -1,12 +1,13 @@
 'use client';
 import { useState } from 'react';
+import { InstagramIcon, XIcon, YouTubeIcon, LinkedInIcon, ThreadsIcon } from '@/components/Icons';
 
 const PLATFORMS = [
-  { id: 'INSTAGRAM', icon: 'IG', name: 'Instagram', color: '#E4405F' },
-  { id: 'TWITTER', icon: 'X', name: 'Twitter / X', color: '#1DA1F2' },
-  { id: 'YOUTUBE', icon: 'YT', name: 'YouTube', color: '#FF0000' },
-  { id: 'LINKEDIN', icon: 'LI', name: 'LinkedIn', color: '#0A66C2' },
-  { id: 'THREADS', icon: 'TH', name: 'Threads', color: '#ffffff' },
+  { id: 'INSTAGRAM', icon: <InstagramIcon size={18} />, name: 'Instagram', color: '#E4405F' },
+  { id: 'TWITTER', icon: <XIcon size={18} />, name: 'Twitter / X', color: '#1DA1F2' },
+  { id: 'YOUTUBE', icon: <YouTubeIcon size={18} />, name: 'YouTube', color: '#FF0000' },
+  { id: 'LINKEDIN', icon: <LinkedInIcon size={18} />, name: 'LinkedIn', color: '#0A66C2' },
+  { id: 'THREADS', icon: <ThreadsIcon size={18} />, name: 'Threads', color: '#ffffff' },
 ];
 
 const CONTENT_TYPES: Record<string, string[]> = {
@@ -121,7 +122,7 @@ export default function CreatePage() {
                   data-platform={p.id}
                   onClick={() => { setPlatform(p.id); setContentType(CONTENT_TYPES[p.id][0]); }}
                 >
-                  <span style={{ fontWeight: 800, fontSize: 12, marginRight: 4 }}>{p.icon}</span> {p.name}
+                  <span style={{ display: 'flex', alignItems: 'center', opacity: 0.8 }}>{p.icon}</span> {p.name}
                 </button>
               ))}
             </div>
