@@ -4,7 +4,6 @@ import { useState } from 'react';
 const PLATFORMS = [
   { id: 'INSTAGRAM', icon: 'IG', name: 'Instagram', color: '#E4405F' },
   { id: 'TWITTER', icon: 'X', name: 'Twitter / X', color: '#1DA1F2' },
-  { id: 'TIKTOK', icon: 'TT', name: 'TikTok', color: '#00F2EA' },
   { id: 'YOUTUBE', icon: 'YT', name: 'YouTube', color: '#FF0000' },
   { id: 'LINKEDIN', icon: 'LI', name: 'LinkedIn', color: '#0A66C2' },
   { id: 'THREADS', icon: 'TH', name: 'Threads', color: '#ffffff' },
@@ -13,7 +12,6 @@ const PLATFORMS = [
 const CONTENT_TYPES: Record<string, string[]> = {
   INSTAGRAM: ['IMAGE', 'CAROUSEL', 'REEL', 'STORY'],
   TWITTER: ['TEXT', 'IMAGE', 'THREAD'],
-  TIKTOK: ['VIDEO', 'REEL'],
   YOUTUBE: ['VIDEO'],
   LINKEDIN: ['TEXT', 'IMAGE', 'CAROUSEL'],
   THREADS: ['TEXT', 'IMAGE', 'THREAD'],

@@ -347,10 +347,26 @@ body.dark .topbar-xp {
 }
 
 .platform-chip.active {
-  background: var(--soft-stone-800);
-  color: white;
-  border-color: var(--soft-stone-800);
+  background: var(--cl-stone-800);
+  color: var(--cl-bg);
+  border-color: var(--cl-stone-800);
   box-shadow: 0 8px 16px -4px rgba(0,0,0,0.1);
+}
+
+body.dark .platform-chip {
+  background: var(--cl-stone-100);
+  border-color: var(--cl-stone-200);
+  color: white;
+}
+
+body.dark .platform-chip:hover {
+  background: var(--cl-stone-200);
+}
+
+body.dark .platform-chip.active {
+  background: var(--accent-primary);
+  color: var(--cl-stone-800);
+  border-color: var(--accent-primary);
 }
 
 @media (max-width: 1024px) {
