@@ -10,6 +10,10 @@ interface Sim {
   impressions: number; reach: number; likes: number; comments: number; shares: number; saves: number;
   createdAt: string; recommendations: string[] | null;
   post: { body: string; hashtags: string[]; contentType: string } | null;
+  aiHookScore?: number;
+  aiEditingStyle?: string;
+  aiCaptionQuality?: string;
+  aiInsight?: string;
 }
 
 export default function SimulationsPage() {
@@ -95,16 +99,43 @@ export default function SimulationsPage() {
                     </div>
                   ))}
                 </div>
+                {/* AI Pro Insights Section */}
+                {(selected.aiHookScore || selected.aiEditingStyle) && (
+                  <div style={{ marginTop: 24, padding: 20, background: 'var(--cl-stone-800)', color: 'white', borderRadius: 16 }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 16 }}>
+                      <span style={{ fontSize: 18 }}>✨</span>
+                      <span style={{ fontWeight: 700, fontSize: 14 }}>PRO AI ANALYSIS</span>
+                    </div>
+                    
+                    <div className="grid-2" style={{ gap: 12, marginBottom: 16 }}>
+                      <div style={{ background: 'rgba(255,255,255,0.1)', padding: 12, borderRadius: 12 }}>
+                        <div style={{ fontSize: 10, opacity: 0.6 }}>HOOK STRENGTH</div>
+                        <div style={{ fontSize: 20, fontWeight: 800, color: 'var(--cl-coral)' }}>{selected.aiHookScore}%</div>
+                      </div>
+                      <div style={{ background: 'rgba(255,255,255,0.1)', padding: 12, borderRadius: 12 }}>
+                        <div style={{ fontSize: 10, opacity: 0.6 }}>EDITING STYLE</div>
+                        <div style={{ fontSize: 12, fontWeight: 700 }}>{selected.aiEditingStyle || 'Standard'}</div>
+                      </div>
+                    </div>
+                    
+                    {selected.aiCaptionQuality && (
+                      <div style={{ fontSize: 12, opacity: 0.9, lineHeight: 1.5, fontStyle: 'italic' }}>
+                        "{selected.aiCaptionQuality}"
+                      </div>
+                    )}
+                  </div>
+                )}
+
                 {selected.recommendations && selected.recommendations.length > 0 && (
-                  <>
-                    <h4 style={{ fontSize: 13, color: 'var(--text-secondary)', marginBottom: 10 }}>Analysis</h4>
+                  <div style={{ marginTop: 24 }}>
+                    <h4 style={{ fontSize: 13, color: 'var(--text-secondary)', marginBottom: 10 }}>Actionable Strategy</h4>
                     {selected.recommendations.map((r, i) => (
                       <div key={i} style={{ fontSize: 13, color: 'var(--text-secondary)', padding: '8px 12px', background: 'var(--bg-glass)', borderRadius: 'var(--radius-md)', marginBottom: 6 }}>
-                        <span style={{ fontSize: 10, fontWeight: 800, color: 'var(--accent-primary)', marginRight: 6 }}>TIP</span>
+                        <span style={{ fontSize: 10, fontWeight: 800, color: 'var(--accent-primary)', marginRight: 6 }}>STRATEGY</span>
                         {r}
                       </div>
                     ))}
-                  </>
+                  </div>
                 )}
               </div>
             </div>

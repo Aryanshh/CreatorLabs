@@ -3,6 +3,7 @@ import prisma from '@/lib/prisma';
 import { auth } from '@/lib/auth';
 import { runSimulation, PostInput } from '@/lib/simulation-engine';
 import { awardXP, checkAndAwardBadges } from '@/lib/gamification';
+import { analyzeContent } from '@/lib/ai';
 
 export async function POST(req: NextRequest) {
   const session = await auth();
@@ -31,16 +32,31 @@ export async function POST(req: NextRequest) {
 
   const result = runSimulation(input);
 
+  // AI Pro Analysis
+  const aiResults = await analyzeContent(post.platform, post.contentType, post.body);
+  
+  // Merge AI insights with engine results
+  const finalVirality = aiResults ? (result.viralityScore * 0.4 + aiResults.viralityScore * 0.6) : result.viralityScore;
+  const finalRecommendations = aiResults ? [...result.recommendations, ...aiResults.recommendations] : result.recommendations;
+
   // Save simulation
   const simulation = await prisma.simulation.create({
     data: {
       postId, userId: session.user.id, platform: post.platform,
       impressions: result.impressions, reach: result.reach, likes: result.likes,
       comments: result.comments, shares: result.shares, saves: result.saves,
-      engagementRate: result.engagementRate, viralityScore: result.viralityScore,
+      engagementRate: result.engagementRate, 
+      viralityScore: finalVirality,
       algorithmFactors: JSON.stringify(result.algorithmFactors),
-      recommendations: JSON.stringify(result.recommendations),
+      recommendations: JSON.stringify(finalRecommendations),
       timeline: JSON.stringify(result.timeline),
+      
+      // AI Fields
+      aiHookScore: aiResults?.hookScore,
+      aiEditingStyle: aiResults?.editingStyle,
+      aiCaptionQuality: aiResults?.captionAnalysis,
+      aiInsight: aiResults?.captionAnalysis,
+      
       status: 'COMPLETED', completedAt: new Date(),
     },
   });
@@ -96,6 +112,10 @@ export async function GET() {
     algorithmFactors: s.algorithmFactors ? JSON.parse(s.algorithmFactors) : null,
     recommendations: s.recommendations ? JSON.parse(s.recommendations) : null,
     timeline: s.timeline ? JSON.parse(s.timeline) : null,
+    aiHookScore: s.aiHookScore,
+    aiEditingStyle: s.aiEditingStyle,
+    aiCaptionQuality: s.aiCaptionQuality,
+    aiInsight: s.aiInsight,
     post: s.post ? { ...s.post, hashtags: JSON.parse(s.post.hashtags), keywords: JSON.parse(s.post.keywords) } : null,
   })));
 }

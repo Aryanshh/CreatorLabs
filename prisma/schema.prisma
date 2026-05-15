@@ -87,6 +87,12 @@ model Simulation {
   algorithmFactors String? // JSON
   recommendations  String? // JSON
   timeline         String? // JSON - hour-by-hour data
+  
+  // AI Pro Insights
+  aiHookScore      Int?
+  aiEditingStyle   String?
+  aiCaptionQuality String?
+  aiInsight        String? // Detailed strategic advice
 
   status         String   @default("PENDING") // PENDING, PROCESSING, COMPLETED, FAILED
   completedAt    DateTime?

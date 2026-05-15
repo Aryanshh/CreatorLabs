@@ -1,6 +1,6 @@
+@import url('https://api.fontshare.com/v2/css?f[]=cabinet-grotesk@100,200,300,400,500,700,800,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Reenie+Beanie&display=swap');
-@import url('https://api.fontshare.com/v2/css?f[]=clash-display@200,300,400,500,600,700&display=swap');
-@import url('https://api.fontshare.com/v2/css?f[]=satoshi@300,400,500,700,900&display=swap');
 
 :root {
   --cl-bg: #FDFCF8;
@@ -14,8 +14,8 @@
   --cl-stone-100: #F5F5F4;
   
   /* Font Families */
-  --font-heading: 'Clash Display', sans-serif;
-  --font-body: 'Satoshi', sans-serif;
+  --font-heading: 'Cabinet Grotesk', sans-serif;
+  --font-body: 'Plus Jakarta Sans', sans-serif;
   
   /* Mapping to existing app variables */
   --bg-color: var(--cl-bg);
